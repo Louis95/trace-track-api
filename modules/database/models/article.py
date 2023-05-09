@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Float, ForeignKey, Integer, String
+"""Model defining the Article related table"""
+
+from sqlalchemy import Column, Float, Integer, String
 from sqlalchemy.orm import relationship
 
 from modules.database.models.utility_model import TimeStampMixin
@@ -6,6 +8,8 @@ from modules.utilities.database import Base
 
 
 class Article(Base, TimeStampMixin):
+    """Article model"""
+
     __tablename__ = "articles"
 
     id = Column(Integer, primary_key=True, autoincrement=True)

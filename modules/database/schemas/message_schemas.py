@@ -3,6 +3,8 @@ from pydantic import BaseModel, Field
 
 
 class Message(BaseModel):
+    """Response message"""
+
     detail: str = Field(
         ...,
         example="String type - this will contain more details about the problem encountered",

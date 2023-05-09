@@ -1,3 +1,5 @@
+"""Tests for shipment"""
+
 from unittest.mock import patch
 
 import pytest
@@ -10,8 +12,7 @@ from modules.database.schemas.shipment_schemas import ShipmentRequest
 @patch("modules.services.weather_service.fetch_weather_condition")
 def test_get_shipment_information(
     mock_fetch_weather_condition,
-    db_session,
-    test_shipment,
+    create_test_db_session,
 ) -> None:
     """Test to get shipment informantion"""
     mock_fetch_weather_condition.return_value = {
@@ -22,7 +23,10 @@ def test_get_shipment_information(
 
     shipment_request = ShipmentRequest(tracking_number="TN12345678", carrier="DHL")
 
-    shipment_response = get_shipment_information(db_session, shipment_request)
+    shipment_response = get_shipment_information(
+        create_test_db_session,
+        shipment_request,
+    )
 
     assert shipment_response.tracking_number == "TN12345678"
     assert shipment_response.sender_zip == " 10115"
@@ -39,9 +43,9 @@ def test_get_shipment_information(
 @patch("modules.services.weather_service.fetch_weather_condition")
 def test_get_shipment_information_with_invalid_tracking_number(
     mock_fetch_weather_condition,
-    db_session,
-    test_shipment,
+    create_test_db_session,
 ):
+    """Test get shipment with invalid tracking number."""
     mock_fetch_weather_condition.return_value = {
         "description": "sunny",
         "temp": 72,
@@ -50,6 +54,6 @@ def test_get_shipment_information_with_invalid_tracking_number(
 
     shipment_request = ShipmentRequest(tracking_number="0000", carrier="UPS")
     with pytest.raises(HTTPException) as no_shipment_found:
-        get_shipment_information(db_session, shipment_request)
+        get_shipment_information(create_test_db_session, shipment_request)
 
     assert no_shipment_found.value.status_code == 404

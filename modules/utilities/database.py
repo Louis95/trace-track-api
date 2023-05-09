@@ -22,7 +22,9 @@ def get_db_session() -> sessionmaker:
 
 
 def get_environment() -> str:
-    """Gets the environment from the environment variable ENV and returns local if it doesn't exist"""
+    """Gets the environment from the environment variable ENV
+    and returns local if it doesn't exist"""
+
     environment = os.getenv("STAGE", "local")
     valid_environments = ["local", "staging", "production"]
 
@@ -41,19 +43,16 @@ def db_connection_string(environment=None) -> str:
     if environment == "local":
         if "DATABASE_URL" in os.environ:
             return os.environ["DATABASE_URL"]
-        raise Exception(
-            "Local environment is specified but DATABASE_URL cannot be found.",
-        )
 
     # postgresql
-    POSTGRESQL_HOST: str = os.environ["POSTGRESQL_HOST"]
-    POSTGRESQL_PORT: str = "5432"
+    postgresql_host: str = os.environ["POSTGRESQL_HOST"]
+    postgresql_port: str = "5432"
     # common
-    DB_NAME: str = os.environ["DB_NAME"]
-    USERNAME: str = os.environ["USERNAME"]
-    PASSWORD: str = os.environ["PASSWORD"]
+    db_name: str = os.environ["DB_NAME"]
+    username: str = os.environ["USERNAME"]
+    password: str = os.environ["PASSWORD"]
 
-    return f"postgresql://{USERNAME}:{PASSWORD}@{POSTGRESQL_HOST}:{POSTGRESQL_PORT}/{DB_NAME}"
+    return f"postgresql://{username}:{password}@{postgresql_host}:{postgresql_port}/{db_name}"
 
 
 DB_URL = db_connection_string()

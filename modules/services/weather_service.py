@@ -1,3 +1,5 @@
+"""Service used to fetch weather information"""
+
 from __future__ import annotations
 
 import json
@@ -22,7 +24,7 @@ def fetch_weather_condition(zip_code: int, country: str) -> dict[str, str]:
     return get_or_update_weather_from_cache(zip_code, country)
 
 
-def get_country_code(country_name) -> str | None:
+def get_country_code(country_name) -> str:
     """Returns the country code of a given country.
 
     Eg returns FR for France.
@@ -35,7 +37,7 @@ def get_country_code(country_name) -> str | None:
         return country.alpha_2
     except LookupError:
         logger.error("Unable to fetch country code from given country")
-        return None
+        return ""
 
 
 def get_or_update_weather_from_cache(zip_code: int, country: str) -> dict:
@@ -59,7 +61,7 @@ def get_or_update_weather_from_cache(zip_code: int, country: str) -> dict:
             "units": "imperial",
         }
 
-        response = requests.get(config.WEATHER_API_URL, params=params)
+        response = requests.get(config.WEATHER_API_URL, params=params, timeout=30)
         if response.status_code == 200:
             logger.info("Successfully fetched weather information")
             weather_information_response = response.json()

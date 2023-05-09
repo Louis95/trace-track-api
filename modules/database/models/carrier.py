@@ -1,3 +1,5 @@
+"""Model defining the Carrier related table"""
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 
@@ -6,6 +8,8 @@ from modules.utilities.database import Base
 
 
 class Carrier(Base, TimeStampMixin):
+    """Carrier model"""
+
     __tablename__ = "carriers"
 
     id = Column(Integer, primary_key=True, autoincrement=True)

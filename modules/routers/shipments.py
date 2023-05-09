@@ -1,3 +1,5 @@
+"""Routes requests related to Shipment"""
+
 import logging
 
 from fastapi import APIRouter, Depends, HTTPException, Query

@@ -1,3 +1,5 @@
+"""Model defining the Shipment related table"""
+
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
@@ -6,6 +8,8 @@ from modules.utilities.database import Base
 
 
 class Shipment(Base, TimeStampMixin):
+    """Shipment model"""
+
     __tablename__ = "shipments"
     id = Column(Integer, primary_key=True, autoincrement=True)
     tracking_number = Column(String, unique=True, nullable=False)
@@ -23,6 +27,8 @@ class Shipment(Base, TimeStampMixin):
 
 
 class ArticlesOnShipment(Base, TimeStampMixin):
+    """Article on shipment model"""
+
     __tablename__ = "articles_on_shipment"
 
     shipment_id = Column(Integer, ForeignKey("shipments.id"), primary_key=True)

@@ -1,3 +1,5 @@
+"""Shipment actions"""
+
 from fastapi import HTTPException
 from fastapi import status as http_status
 from sqlalchemy.orm import Session

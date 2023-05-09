@@ -7,6 +7,8 @@ from sqlalchemy.orm import declarative_mixin
 
 @declarative_mixin
 class TimeStampMixin:
+    """Time stamp mixin"""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

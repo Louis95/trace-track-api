@@ -51,6 +51,11 @@ $ python3 -m pip install pre-commit
 $ pre-commit install
 ```
 
+### preview
+
+![image description](assets/pre-commit.png)
+
+
 ### Set up Docker
 
 While you can easily perform some tasks (such as testing) in a local virtual environment, it is recommended to set up Docker. You can [find instructions to install Docker here](https://docs.docker.com/engine/install/).
@@ -147,8 +152,28 @@ You can test by running the command. Make you have your database set-up before r
 $ pytest
 ```
 
-###
+### preview
+
+![image description](assets/tests.png)
+
 
 ## API Documentation
 
 Once the application is running, you can view the API documentation by opening [http://0.0.0.0:8000/docs](http://0.0.0.0:8000/docs) in the web browser of your choice.
+
+
+### preview
+
+![image description](assets/documentation.png)
+
+## Seed Database
+
+You can seed the database by running the command below:
+
+```shell
+$ python seed_database.py
+```
+
+### preview
+
+![image description](assets/sample_response.png)

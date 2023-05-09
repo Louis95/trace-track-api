@@ -3,7 +3,7 @@
 ## Overview
 
 The Track and Trace API exposes shipment and article information along with corresponding weather information.
-I'm using the [openweathermap](https://home.openweathermap.org/) API to get the weather information. Before running the application, make you sign up to get an API key.
+I'm using the [openweathermap](https://home.openweathermap.org/) API to get the weather information. Before running the application, sign up to get an API key.
 
 ## Installation
 
@@ -53,7 +53,7 @@ $ pre-commit install
 
 ### Set up Docker
 
-While you can easily perform some tasks (like testing) in a local virtual environment, it is recommended to set up Docker. You can [find instructions to install Docker here](https://docs.docker.com/engine/install/).
+While you can easily perform some tasks (such as testing) in a local virtual environment, it is recommended to set up Docker. You can [find instructions to install Docker here](https://docs.docker.com/engine/install/).
 
 ### Set up Docker Compose
 
@@ -124,7 +124,7 @@ To create the database tables required by this app, the alembic library is provi
 $ alembic upgrade head
 
 
-Please keep in mind that these migrations may remove all data from the database and set everything up from zero, so this particular command should never be used in a production environment or in any scenario where you wish for data to persist.
+Please keep in mind that these migrations may remove all data from the database and set everything up from scratch, so this particular command should never be used in a production environment or in any scenario where you wish for data to persist.
 
 5. **Run Application**
 

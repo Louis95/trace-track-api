@@ -1,0 +1,60 @@
+version: "3.9"
+
+
+services:
+  unittest:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: "pytest tests"
+    environment:
+    - DATABASE_URL=postgresql://postgres:trackandtrace@db:5432/trackandtrace
+    - WEATHER_API_KEY=b205f6ef5e31fabb369a30f6d2864672
+    depends_on:
+    - db
+    volumes:
+    - ${HOME}/.aws/:/home/api/.aws:ro
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+    - POSTGRES_DB=trackandtrace
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=trackandtrace
+    - WEATHER_API_KEY=
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "trackandtrace"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    ports:
+    - "5433:5432"
+    volumes:
+    - pg_data:/var/lib/postgresql/data
+
+
+  redis:
+    image: redis:6
+    ports:
+    - "6379:6379"
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+    - db
+    - redis
+    environment:
+      DATABASE_URL: postgresql://postgres:trackandtrace@db:5432/trackandtrace
+
+      CACHE_HOST: redis
+      CACHE_PORT: 6379
+#    command: sh -c "alembic upgrade head"
+
+    ports:
+    - "8000:8000"
+    restart: on-failure
+
+
+volumes:
+  pg_data:
